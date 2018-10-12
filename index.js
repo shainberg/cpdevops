@@ -15,4 +15,6 @@ app.get('*', (req, res) => {
     res.send(`Counter value is: ${counter}`)
 })
 
+app.listen(80)
+
 
