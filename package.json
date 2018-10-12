@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/shainberg/cpdevops/issues"
   },
-  "homepage": "https://github.com/shainberg/cpdevops#readme"
+  "homepage": "https://github.com/shainberg/cpdevops#readme",
+  "dependencies": {
+    "express": "^4.16.4"
+  }
 }
