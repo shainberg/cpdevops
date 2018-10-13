@@ -6,6 +6,11 @@ pipeline {
                 sh 'npm --version'
             }
         }
+	stage('Shainberg'){
+	    steps {
+	        sh 'echo Shainberg'
+	    }
+	}
     }
 }
 
