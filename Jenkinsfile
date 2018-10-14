@@ -5,9 +5,9 @@ pipeline {
     stages {
         stage('build') {
             steps {
-                script(
+                node{
                     docker.build("counter-app-${env.BRANCH_NAME}")
-                )
+                }
             }
         }
 	stage('Shainberg'){
