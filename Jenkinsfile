@@ -1,9 +1,11 @@
 pipeline {
-    agent { docker { image 'node:6.3' } }
+    agent { 
+        dockerfile true
+    }
     stages {
         stage('build') {
             steps {
-                sh 'npm --version'
+                docker.build("counter-app-${env.BRANCH_NAME}")
             }
         }
 	stage('Shainberg'){
