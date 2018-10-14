@@ -1,19 +1,19 @@
 pipeline {
     agent { 
-        dockerfile true
+        dockerfile{
+            label "counter-app-${env.BRANCH_NAME}"
+        } 
     }
     stages {
         stage('build') {
             steps {
-                node{
-                    docker.build("counter-app-${env.BRANCH_NAME}")
-                }
+                sh 'echo Shainberg'
             }
         }
 	stage('Shainberg'){
 	    steps {
 	        sh 'echo Shainberg'
-		sh 'touch Shainberg'
+		    sh 'touch Shainberg'
 	    }
 	}
     }
