@@ -9,6 +9,7 @@ pipeline {
 	stage('Shainberg'){
 	    steps {
 	        sh 'echo Shainberg'
+		sh 'touch Shainberg'
 	    }
 	}
     }
