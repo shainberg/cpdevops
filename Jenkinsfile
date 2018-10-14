@@ -1,7 +1,7 @@
 pipeline {
     agent { 
         dockerfile{
-            label "counter-app-${env.BRANCH_NAME}"
+            additionalBuildArgs "--label counter-app-${env.BRANCH_NAME} -t counter-app-${env.BRANCH_NAME}:latest"
         } 
     }
     stages {
