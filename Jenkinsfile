@@ -13,14 +13,16 @@ node {
         //    echo "${imagesToRemove}"
         //    sh "docker rmi -f ${imagesToRemove}"
         //}
-        
+        def container = docker.container(${env.BRANCH_NAME})
+        container.stop()
+
         sh 'printenv'
     }
     stage('Build Docker'){
         sh "docker build -t counter-app-${env.BRANCH_NAME} --no-cache --label ${env.BRANCH_NAME} ."
     }
     stage('Deploy'){
-        sh "docker run --publish-all=true -d -e VIRTUAL_HOST=${env.BRANCH_NAME} counter-app-${env.BRANCH_NAME}"
+        sh "docker run --publish-all=true -d -e VIRTUAL_HOST=${env.BRANCH_NAME} --name counter-app-${env.BRANCH_NAME} counter-app-${env.BRANCH_NAME}"
     }
   }
   catch (err) {
