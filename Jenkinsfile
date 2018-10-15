@@ -7,6 +7,7 @@ node {
         sh 'git --version'
         echo "Branch: ${env.BRANCH_NAME}"
         sh 'docker -v'
+        sh "docker rmi -f $(docker images | grep counter-app-${env.BRANCH_NAME})"
         sh 'printenv'
     }
     stage('Build Docker'){
