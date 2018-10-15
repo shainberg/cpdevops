@@ -14,7 +14,9 @@ node {
         //    sh "docker rmi -f ${imagesToRemove}"
         //}
         dockerImages = "docker images".execute().text.split(/\n/)
+        echo "${dockerImages}"
 	    snapshotImages = dockerImages.findAll{ it.contains(env.BRANCH_NAME) || it.contains("<none>") }
+        echo "${snapshotImages}"
 	    snapshotImages.each {output -> println("docker rmi -f ${output.split()[2]}".execute().text)}
 
         sh 'printenv'
