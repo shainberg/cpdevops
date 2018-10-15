@@ -1,22 +1,22 @@
-pipeline {
-    agent { 
-        dockerfile{
-            additionalBuildArgs "--label counter-app-${env.BRANCH_NAME} -t counter-app-${env.BRANCH_NAME}:latest"
-        } 
+node {
+  try {
+    stage('Checkout') {
+        checkout scm
     }
-    stages {
-        stage('build') {
-            steps {
-                sh 'echo Shainberg'
-            }
-        }
-	stage('Shainberg'){
-	    steps {
-	        sh 'echo Shainberg'
-		    sh 'touch Shainberg'
-            sh "sudo docker run --publish-all=true -e VIRTUAL_HOST=${env.BRANCH_NAME} counter-app-${env.BRANCH_NAME}"
-	    }
-	}
+    stage('Environment') {
+        sh 'git --version'
+        echo "Branch: ${env.BRANCH_NAME}"
+        sh 'docker -v'
+        sh 'printenv'
     }
+    stage('Build Docker'){
+        sh "docker build -t ${env.BRANCH_NAME} --no-cache --label ${env.BRANCH_NAME} ."
+    }
+    stage('Deploy'){
+        sh "docker run --publish-all=true -e VIRTUAL_HOST=${env.BRANCH_NAME} counter-app-${env.BRANCH_NAME}"
+    }
+  }
+  catch (err) {
+    throw err
+  }
 }
-
