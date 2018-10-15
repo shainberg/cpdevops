@@ -13,6 +13,7 @@ node {
         //    echo "${imagesToRemove}"
         //    sh "docker rmi -f ${imagesToRemove}"
         //}
+        
         sh 'printenv'
     }
     stage('Build Docker'){
