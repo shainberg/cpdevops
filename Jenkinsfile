@@ -7,13 +7,13 @@ node {
         sh 'git --version'
         echo "Branch: ${env.BRANCH_NAME}"
         sh 'docker -v'
-        //def imagesToRemove = sh "docker images | grep counter-app-${env.BRANCH_NAME}"
+       //def imagesToRemove = sh "docker images | grep counter-app-${env.BRANCH_NAME}"
         //echo "result: ${imagesToRemove}"
         //if (imagesToRemove != ''){
         //    echo "${imagesToRemove}"
         //    sh "docker rmi -f ${imagesToRemove}"
         //}
-        dockerImages = "docker images".execute().text.split(/\n/)
+        dockerImages = "doc ker images".execute().text.split("/\n/")
         echo "${dockerImages}"
 	    snapshotImages = dockerImages.findAll{ it.contains(env.BRANCH_NAME) || it.contains("<none>") }
         echo "${snapshotImages}"
