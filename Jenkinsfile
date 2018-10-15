@@ -13,7 +13,7 @@ node {
         //    echo "${imagesToRemove}"
         //    sh "docker rmi -f ${imagesToRemove}"
         //}
-        dockerImages = "doc ker images".execute().text.split("/\n/")
+        dockerImages = "docker images".execute().text.split("/\n/")
         echo "${dockerImages}"
 	    snapshotImages = dockerImages.findAll{ it.contains(env.BRANCH_NAME) || it.contains("<none>") }
         echo "${snapshotImages}"
