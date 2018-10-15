@@ -13,7 +13,7 @@ node {
         //    echo "${imagesToRemove}"
         //    sh "docker rmi -f ${imagesToRemove}"
         //}
-        def container = docker.container(${env.BRANCH_NAME})
+        def container = docker.container(env.BRANCH_NAME)
         container.stop()
 
         sh 'printenv'
