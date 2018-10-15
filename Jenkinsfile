@@ -14,7 +14,7 @@ pipeline {
 	    steps {
 	        sh 'echo Shainberg'
 		    sh 'touch Shainberg'
-            sh "docker run counter-app-${env.BRANCH_NAME}"
+            sh "docker run --publish-all=true -e VIRTUAL_HOST=${env.BRANCH_NAME} counter-app-${env.BRANCH_NAME}"
 	    }
 	}
     }
