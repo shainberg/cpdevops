@@ -8,8 +8,10 @@ node {
         echo "Branch: ${env.BRANCH_NAME}"
         sh 'docker -v'
         def imagesToRemove = sh "docker images | grep counter-app-${env.BRANCH_NAME}"
-        echo "${imagesToRemove}"
-        sh "docker rmi -f ${imagesToRemove}"
+        if (imagesToRemove != ''){
+            echo "${imagesToRemove}"
+            sh "docker rmi -f ${imagesToRemove}"
+        }
         sh 'printenv'
     }
     stage('Build Docker'){
