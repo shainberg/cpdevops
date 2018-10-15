@@ -4,7 +4,7 @@ pipeline {
             additionalBuildArgs "--label counter-app-${env.BRANCH_NAME} -t counter-app-${env.BRANCH_NAME}:latest"
         } 
     }
-    /*stages {
+    stages {
         stage('build') {
             steps {
                 sh 'echo Shainberg'
@@ -14,8 +14,9 @@ pipeline {
 	    steps {
 	        sh 'echo Shainberg'
 		    sh 'touch Shainberg'
+            sh "docker run counter-app-${env.BRANCH_NAME}"
 	    }
 	}
-    }*/
+    }
 }
 
