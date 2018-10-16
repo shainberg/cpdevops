@@ -20,6 +20,12 @@ node {
 	    snapshotImages.each {output -> println("docker rmi -f ${output.split()[2]}".execute().text)}
         dockerImagesAfter = "docker images".execute().text.split("/\n/")
         echo "${dockerImagesAfter}"
+
+        sh "docker ps -aq --no-trunc -f status=exited | xargs docker rm"
+
+        sh "docker images -q --filter dangling=true | xargs docker rmi"
+
+
         sh 'printenv'
     }
     stage('Build Docker'){
@@ -27,6 +33,7 @@ node {
     }
     stage('Deploy'){
         sh "docker run --publish-all=true -d -e VIRTUAL_HOST=${env.BRANCH_NAME} --name counter-app-${env.BRANCH_NAME} counter-app-${env.BRANCH_NAME}"
+        sh "docker images -q --filter dangling=true | xargs docker rmi"
     }
   }
   catch (err) {
