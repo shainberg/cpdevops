@@ -20,10 +20,14 @@ node {
 	    snapshotImages.each {output -> println("docker rmi -f ${output.split()[2]}".execute().text)}
         dockerImagesAfter = "docker images".execute().text.split("/\n/")
         echo "${dockerImagesAfter}"
+        try{
+            sh "docker ps -aq --no-trunc -f status=exited | xargs docker rm"
 
-        sh "docker ps -aq --no-trunc -f status=exited | xargs docker rm"
-
-        sh "docker images -q --filter dangling=true | xargs docker rmi"
+            sh "docker images -q --filter dangling=true | xargs docker rmi"
+        }
+        catch(ExceptionName e1){
+            echo "Error removing containers"
+        }
 
 
         sh 'printenv'
