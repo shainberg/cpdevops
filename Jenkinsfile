@@ -29,7 +29,7 @@ node {
         //    echo "Error removing containers"
         //}
         try{
-            sh "docker ps --filter name=counter-app-${env.BRANCH_NAME} -qa"// | xargs docker rm -f"
+            sh "docker ps --filter name=counter-app-${env.BRANCH_NAME} -qa | xargs docker rm -f"
         }
         catch(Exception){
             echo "Remaining containers:"
