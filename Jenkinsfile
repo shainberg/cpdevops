@@ -38,7 +38,7 @@ node {
     }
     stage('Deploy'){
         sh "docker run --publish-all=true -d -e VIRTUAL_HOST=${env.BRANCH_NAME} --name counter-app-${env.BRANCH_NAME} counter-app-${env.BRANCH_NAME}"
-        sh "docker images -q --filter dangling=true | xargs docker rmi -f"
+        //sh "docker images -q --filter dangling=true | xargs docker rmi -f"
     }
   }
   catch (err) {
