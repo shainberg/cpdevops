@@ -1,0 +1,23 @@
+{
+  "name": "counter",
+  "version": "1.0.0",
+  "description": "Counter is a cutting edge technology provides the power to count POST requests.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shainberg/cpdevops.git"
+  },
+  "author": "Or Shainberg",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shainberg/cpdevops/issues"
+  },
+  "homepage": "https://github.com/shainberg/cpdevops#readme",
+  "dependencies": {
+    "express": "^4.16.4"
+  }
+}
