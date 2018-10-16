@@ -13,22 +13,23 @@ node {
         //    echo "${imagesToRemove}"
         //    sh "docker rmi -f ${imagesToRemove}"
         //}
-        dockerImages = "docker images".execute().text.split("/\n/")
-        echo "${dockerImages}"
-	    snapshotImages = dockerImages.findAll{ it.contains(env.BRANCH_NAME) || it.contains("<none>") }
-        echo "${snapshotImages}"
-	    snapshotImages.each {output -> println("docker rmi -f ${output.split()[2]}".execute().text)}
-        dockerImagesAfter = "docker images".execute().text.split("/\n/")
-        echo "${dockerImagesAfter}"
-        try{
-            sh "docker ps -aq --no-trunc -f status=exited | xargs docker rm"
+        //dockerImages = "docker images".execute().text.split("/\n/")
+        //echo "${dockerImages}"
+	    //snapshotImages = dockerImages.findAll{ it.contains(env.BRANCH_NAME) || it.contains("<none>") }
+        //echo "${snapshotImages}"
+	    //snapshotImages.each {output -> println("docker rmi -f ${output.split()[2]}".execute().text)}
+        //dockerImagesAfter = "docker images".execute().text.split("/\n/")
+        //echo "${dockerImagesAfter}"
+        //try{
+        //    sh "docker ps -aq --no-trunc -f status=exited | xargs docker rm"
 
-            sh "docker images -q --filter dangling=true | xargs docker rmi"
-        }
-        catch(Exception e1){
-            echo "Error removing containers"
-        }
+        //    sh "docker images -q --filter dangling=true | xargs docker rmi"
+        //}
+        //catch(Exception e1){
+        //    echo "Error removing containers"
+        //}
 
+        sh "docker ps --filter name=counter-app-${env.BRANCH_NAME} -qa | xargs docker rm -f"
 
         sh 'printenv'
     }
