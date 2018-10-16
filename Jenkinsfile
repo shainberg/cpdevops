@@ -25,7 +25,7 @@ node {
 
             sh "docker images -q --filter dangling=true | xargs docker rmi"
         }
-        catch(ExceptionName e1){
+        catch(Exception e1){
             echo "Error removing containers"
         }
 
