@@ -29,8 +29,10 @@ node {
         //    echo "Error removing containers"
         //}
 
-        sh "docker ps --filter name=counter-app-${env.BRANCH_NAME} -qa | xargs docker rm -f"
-
+        def containersh = "docker ps --filter name=counter-app-${env.BRANCH_NAME} -qa"// | xargs docker rm -f"
+        if (containers){
+            sh "docker rm -f ${containers}"
+        }
         sh 'printenv'
     }
     stage('Build Docker'){
