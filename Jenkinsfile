@@ -7,7 +7,7 @@ node {
         sh 'git --version'
         echo "Branch: ${env.BRANCH_NAME}"
         sh 'docker -v'
-       //def imagesToRemove = sh "docker images | grep counter-app-${env.BRANCH_NAME}"
+        //def imagesToRemove = sh "docker images | grep counter-app-${env.BRANCH_NAME}"
         //echo "result: ${imagesToRemove}"
         //if (imagesToRemove != ''){
         //    echo "${imagesToRemove}"
@@ -28,11 +28,14 @@ node {
         //catch(Exception e1){
         //    echo "Error removing containers"
         //}
-
-        def containersh = "docker ps --filter name=counter-app-${env.BRANCH_NAME} -qa"// | xargs docker rm -f"
-        if (containers){
-            sh "docker rm -f ${containers}"
+        try{
+            sh "docker ps --filter name=counter-app-${env.BRANCH_NAME} -qa"// | xargs docker rm -f"
         }
+        catch(Exception){
+            echo "Remaining containers:"
+            "sh docker ps --filter name=counter-app-${env.BRANCH_NAME} -qa"
+        }
+        
         sh 'printenv'
     }
     stage('Build Docker'){
